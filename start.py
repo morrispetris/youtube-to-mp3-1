@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,redirect,url_for,session,send_file
 from io import BytesIO
 from pytube import YouTube
-app = Flask(__name__,template_folder='website')
+app = Flask(__name__,template_folder='template')
 app.config['SECRET_KEY'] = "abcdefghijklmnopqrstuvwxyz"
 @app.route('/',methods=["GET","POST"])
 def home():
