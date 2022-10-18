@@ -9,21 +9,21 @@ def home():
     
 @app.errorhandler(404) 
 def invalid_route(e): 
-    return render_template("404.html")
+    return "Cari apa kak?"
     
-@app.route('/youtube-to-mp3',methods=["GET","POST"])
+@app.route('/result',methods=["GET","POST"])
 def download():
     if request.method == "POST":
         session["link"] = request.form.get("url")
         try:
             vid = YouTube(session["link"])
             session["title"] = vid.title
-            return render_template("youtube-to-mp3.html",title=vid.title)
+            return render_template("result.html",title=vid.title)
         except:
             return render_template("error.html")
     return redirect(url_for('home'))
 
-@app.route('/youtube-to-mp3/',methods=["GET","POST"])
+@app.route('/result/',methods=["GET","POST"])
 def startDownload():
     if request.method == "POST":
         buffer = BytesIO()
