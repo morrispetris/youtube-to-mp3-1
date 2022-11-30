@@ -42,7 +42,7 @@ def startDownload():
         d = pathlib.Path.cwd()
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
         audio.download(output_path=d, filename=fn+".mp3")
-        path = d / fn+".mp3"
+        path = d + "/" + fn +".mp3"
         file_handle = open(path, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
         
