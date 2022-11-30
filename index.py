@@ -27,7 +27,8 @@ def download():
 def startDownload():
     if request.method == "POST":
         buffer = BytesIO()
-        audio = YouTube(session["link"]).streams.filter(only_audio=True)[4]
+        #audio = YouTube(session["link"]).streams.filter(only_audio=True)[4]
+        audio = YouTube(session["link"]).streams.filter(only_audio=True).first()
         audio.stream_to_buffer(buffer)
         buffer.seek(0)
         return send_file(buffer,as_attachment=True,download_name=session["title"]+"mp3",mimetype="audio/mpeg")
