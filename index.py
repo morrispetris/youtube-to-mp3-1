@@ -36,13 +36,13 @@ def startDownload():
         #return send_file(buffer,as_attachment=True,download_name=session["title"],mimetype="audio/mp3")
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
         
-        
+        fn = str(uuid.uuid4())
         d = pathlib.Path.cwd()
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
-        audio.download(output_path=d, filename=session["title"]+".mp3")
-        path = d / session["title"]+".mp3"
+        audio.download(output_path=d, filename=fn+".mp3")
+        path = d / fn+".mp3"
         file_handle = open(path, 'rb')
-        return send_file(file_handle, as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
+        return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
 if __name__ == "__main__":
