@@ -35,8 +35,8 @@ def startDownload():
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
         
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3
-        audio.download("/tmp/" + session["title"]+".mp3")
-        return send_file("/tmp/" + session["title"]+".mp3", as_attachment=True, mimetype="audio/mp3")
+        audio.download("./" + session["title"]+".mp4")
+        return send_file("./" + session["title"]+".mp4", as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
 if __name__ == "__main__":
