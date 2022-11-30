@@ -29,7 +29,7 @@ def startDownload():
         buffer = BytesIO()
         #audio = YouTube(session["link"]).streams.filter(only_audio=True)[4]       #for webm
         #audio = YouTube(session["link"]).streams.filter(only_audio=True).first()  #for mp4
-        audio = YouTube(session["link"]).streams.streams.get_by_itag(251)
+        audio = YouTube(session["link"]).streams.get_by_itag(251)
         audio.stream_to_buffer(buffer)
         buffer.seek(0)
         return send_file(buffer,as_attachment=True,download_name=session["title"]+"mp3",mimetype="audio/mpeg")
