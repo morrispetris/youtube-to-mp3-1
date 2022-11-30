@@ -34,7 +34,7 @@ def startDownload():
         buffer.seek(0)
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+"mp3",mimetype="audio/mpeg")
         #return send_file(buffer,as_attachment=True,download_name=session["title"],mimetype="audio/mp3")
-        return send_file(buffer,as_attachment=True,attachment_filename=session["title"]+".mp3",mimetype="audio/mp3")
+        return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
 
     return redirect(url_for('home'))
 if __name__ == "__main__":
