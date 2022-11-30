@@ -1,6 +1,8 @@
 from flask import Flask,render_template,request,redirect,url_for,session,send_file
 from io import BytesIO
 from pytube import YouTube
+import pathlib
+
 app = Flask(__name__,template_folder='template', static_folder='assets')
 app.config['SECRET_KEY'] = "abcdefghijklmnopqrstuvwxyz"
 @app.route('/',methods=["GET","POST"])
@@ -34,9 +36,12 @@ def startDownload():
         #return send_file(buffer,as_attachment=True,download_name=session["title"],mimetype="audio/mp3")
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
         
-        audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3
-        audio.download("./")
-        file_handle = open("./" + session["title"]+".mp3", 'rb')
+        
+        d = pathlib.Path.cwd()
+        audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
+        audio.download(output_path=d, filename=session["title"]+".mp3")
+        path = d / session["title"]+".mp3"
+        file_handle = open(path, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
