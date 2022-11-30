@@ -38,7 +38,8 @@ def startDownload():
         #return send_file(buffer,as_attachment=True,download_name=session["title"],mimetype="audio/mp3")
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
         
-        fn = str(uuid.uuid4())
+        #fn = str(uuid.uuid4())
+        fn = "123"
         d = pathlib.Path.cwd()
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
         audio.download(output_path=d, filename=fn+".mp3")
