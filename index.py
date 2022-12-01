@@ -3,7 +3,6 @@ from io import BytesIO
 from pytube import YouTube
 
 import pathlib
-import uuid
 import os
 
 app = Flask(__name__,template_folder='template', static_folder='assets')
@@ -39,15 +38,24 @@ def startDownload():
         #return send_file(buffer,as_attachment=True,download_name=session["title"],mimetype="audio/mp3")
         #return send_file(buffer,as_attachment=True,download_name=session["title"]+".mp3",mimetype="audio/mp3")
         
-        #fn = str(uuid.uuid4())
-        fn = "123"
+        
+        #fn = "123"
+        #d = pathlib.Path.cwd()
+        #audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
+        #audio.download(output_path=d, filename=fn+".mp3")
+        #path = str(d) + "/" + fn +".mp3"
+        #arr = os.listdir()
+        #print(arr)
+        
         d = pathlib.Path.cwd()
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
-        audio.download(output_path=d, filename=fn+".mp3")
-        path = str(d) + "/" + fn +".mp3"
-        arr = os.listdir()
-        print(arr)
+        outfile = audio.download(output_path=d)
         
+        base, ext = os.path.splitext(outfile)
+        newfile = base + '.mp3'
+        os.rename(outfile, newfile)
+        
+        path = str(d) + "/" + newfile       
         file_handle = open(path, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
         
