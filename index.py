@@ -69,7 +69,7 @@ def startDownload():
           '-i', 
           outfile,
           newfile
-        ], capture_output=True)
+        ], capture_output=True, text=True, check=True)
         print(output)
         
         file_handle = open(newfile, 'rb')
