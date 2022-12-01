@@ -4,6 +4,7 @@ from pytube import YouTube
 
 import pathlib
 import uuid
+import os
 
 app = Flask(__name__,template_folder='template', static_folder='assets')
 app.config['SECRET_KEY'] = "abcdefghijklmnopqrstuvwxyz"
@@ -44,6 +45,9 @@ def startDownload():
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
         audio.download(output_path=d, filename=fn+".mp3")
         path = str(d) + "/" + fn +".mp3"
+        arr = os.listdir()
+        print(arr)
+        
         file_handle = open(path, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
         
