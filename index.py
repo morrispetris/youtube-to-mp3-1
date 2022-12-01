@@ -56,7 +56,7 @@ def startDownload():
         os.rename(outfile, newfile)
             
         file_handle = open(newfile, 'rb')
-        return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
+        return send_file(file_handle, as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
 if __name__ == "__main__":
