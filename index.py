@@ -56,6 +56,7 @@ def startDownload():
         #newfile = base + '.mp3'
         #os.rename(outfile, newfile)
         
+        t = session["title"]
         
         d = pathlib.Path.cwd()
         audio = YouTube(session["link"]).streams.filter(only_audio=True).first()   #for mp3        
@@ -73,7 +74,7 @@ def startDownload():
         print(output)
         
         file_handle = open(newfile, 'rb')
-        return send_file(file_handle, as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
+        return send_file(file_handle, as_attachment=True, download_name=t+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
 if __name__ == "__main__":
