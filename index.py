@@ -54,9 +54,8 @@ def startDownload():
         base, ext = os.path.splitext(outfile)
         newfile = base + '.mp3'
         os.rename(outfile, newfile)
-        
-        path = str(d) + "/" + newfile       
-        file_handle = open(path, 'rb')
+            
+        file_handle = open(newfile, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=fn+".mp3", mimetype="audio/mp3")
         
     return redirect(url_for('home'))
