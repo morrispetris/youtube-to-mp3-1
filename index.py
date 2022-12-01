@@ -64,12 +64,13 @@ def startDownload():
         base, ext = os.path.splitext(outfile)
         newfile = base + '.mp3'
 
-        subprocess.run([
+        output = subprocess.run([
           'ffmpeg',
           '-i', 
           outfile,
           newfile
-        ])
+        ], capture_output=True)
+        print(output)
         
         file_handle = open(newfile, 'rb')
         return send_file(file_handle, as_attachment=True, download_name=session["title"]+".mp3", mimetype="audio/mp3")
