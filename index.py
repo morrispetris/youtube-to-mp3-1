@@ -63,13 +63,12 @@ def startDownload():
         
         base, ext = os.path.splitext(outfile)
         newfile = base + '.mp3'
-        os.rename(outfile, newfile)
-        
+
         subprocess.run([
           'ffmpeg',
           '-i', 
           outfile,
-          newfile)
+          newfile
         ])
         
         file_handle = open(newfile, 'rb')
